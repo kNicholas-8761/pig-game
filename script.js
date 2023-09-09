@@ -1,6 +1,7 @@
 'use strict';
 //Selecting elements
-
+const playerEl0 = document.querySelector('.player--0');
+const playerEl1 = document.querySelector('.player--1');
 const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1');
 const current0El = document.getElementById('current--0');
@@ -24,7 +25,6 @@ btnRoll.addEventListener('click', function () {
   // 1. Generating a random dice roll
 
   let dice = Math.trunc(Math.random() * 6 + 1);
-  console.log(dice);
   // 2.Display dice
   diceEl.classList.remove('hidden');
   diceEl.src = `dice-${dice}.png`; // dynamically load images depending on the random rolled dice
@@ -40,7 +40,8 @@ btnRoll.addEventListener('click', function () {
     document.getElementById(`current--${activePlayer}`).textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
-    nnn;
     current0El.textContent = 0;
+    playerEl0.classList.toggle('player--active');
+    playerEl1.classList.toggle('player--active');
   }
 });
