@@ -20,6 +20,15 @@ diceEl.classList.add('hidden');
 let currentScore = 0;
 let activePlayer = 0;
 
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  currentScore = 0;
+  current0El.textContent = 0;
+  playerEl0.classList.toggle('player--active');
+  playerEl1.classList.toggle('player--active');
+};
+
 //Rolling dice funtionality
 btnRoll.addEventListener('click', function () {
   // 1. Generating a random dice roll
@@ -37,17 +46,14 @@ btnRoll.addEventListener('click', function () {
       currentScore;
   } else {
     //switch to next player
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    currentScore = 0;
-    current0El.textContent = 0;
-    playerEl0.classList.toggle('player--active');
-    playerEl1.classList.toggle('player--active');
+    switchPlayer();
   }
 });
 btnHold.addEventListener('click', function () {
   //1. add current score to active player's score
   scores[activePlayer] += currentScore;
-  document.getElementById(`current--${activePlayer}`).textContent =
+  document.getElementById(`score--${activePlayer}`).textContent =
     scores[activePlayer];
+  //Switch to the next player
+  switchPlayer();
 });
