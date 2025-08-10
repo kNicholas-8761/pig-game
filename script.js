@@ -106,3 +106,13 @@ btnHold.addEventListener('click', function () {
 });
 
 btnNew.addEventListener('click', init);
+// Keyboard shortcuts: R = Roll, H = Hold, N = New
+window.addEventListener('keydown', e => {
+  if (e.repeat) return;
+  if (e.target && e.target.tagName === 'INPUT') return; // don't trigger while typing
+  const k = e.key.toLowerCase();
+  if (!playing && k !== 'n') return; // only allow New when game over
+  if (k === 'r') btnRoll.click();
+  if (k === 'h') btnHold.click();
+  if (k === 'n') btnNew.click();
+});
