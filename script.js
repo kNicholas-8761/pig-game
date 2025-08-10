@@ -17,9 +17,14 @@ function setButtonsEnabled(on) {
 }
 
 let playing, currentScore, activePlayer, scores;
+let winScore = 100;
 
 const init = function () {
   scores = [0, 0];
+
+  const input = document.getElementById('winScore');
+  const v = parseInt(input?.value, 10);
+  winScore = Number.isFinite(v) && v > 0 ? v : 100;
 
   currentScore = 0;
   activePlayer = 0;
@@ -82,7 +87,7 @@ btnHold.addEventListener('click', function () {
       scores[activePlayer];
 
     //2. Check if player score is >= 100
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= winScore) {
       playing = false;
       diceEl.classList.add('hidden');
       document
