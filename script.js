@@ -36,7 +36,8 @@ const init = function () {
   current0El.textContent = 0;
   current1El.textContent = 0;
 
-  diceEl.classList.add('hidden');
+  diceEl.src = 'dice-blank.png';
+  diceEl.alt = 'Dice placeholder';
   playerEl0.classList.remove('player--winner');
   playerEl1.classList.remove('player--winner');
   playerEl0.classList.add('player--active');
