@@ -11,6 +11,10 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
+const soundRoll = new Audio('./sounds/dice-roll.mp3');
+const soundHold = new Audio('./sounds/hold.mp3');
+const soundWin = new Audio('./sounds/win.mp3');
+
 function setButtonsEnabled(on) {
   btnRoll.disabled = !on;
   btnHold.disabled = !on;
@@ -61,6 +65,7 @@ const switchPlayer = function () {
 btnRoll.addEventListener('click', function () {
   if (playing) {
     // 1. Generating a random dice roll
+    soundRoll.play();
 
     let dice = Math.trunc(Math.random() * 6 + 1);
     // 2.Display dice
@@ -86,9 +91,10 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
-    //2. Check if player score is >= 100
-    if (scores[activePlayer] >= winScore) {
+    //2. Check if player score is >= 10
+    if (scores[activePlayer] >= 10) {
       playing = false;
+      soundWin.play(); // 🎵 winner sound only
       diceEl.classList.add('hidden');
       document
         .querySelector(`.player--${activePlayer}`)
@@ -99,6 +105,7 @@ btnHold.addEventListener('click', function () {
 
       setButtonsEnabled(false);
     } else {
+      soundHold.play(); // 🎵 normal hold sound
       //3. Switch to the next player
       switchPlayer();
     }
