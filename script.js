@@ -35,8 +35,6 @@ const init = function () {
   activePlayer = 0;
   playing = true;
 
-  playing = true;
-
   score0El.textContent = 0;
   score1El.textContent = 0;
   current0El.textContent = 0;
@@ -66,7 +64,6 @@ const switchPlayer = function () {
 btnRoll.addEventListener('click', function () {
   if (playing) {
     // 1. Generating a random dice roll
-    soundRoll.play();
 
     let dice = Math.trunc(Math.random() * 6 + 1);
     // 2.Display dice
@@ -95,7 +92,7 @@ btnHold.addEventListener('click', function () {
       scores[activePlayer];
 
     //2. Check if player score is >= 10
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= winScore) {
       playing = false;
       soundWin.play(); // 🎵 winner sound only
       diceEl.classList.add('hidden');
