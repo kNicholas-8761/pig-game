@@ -165,12 +165,39 @@ main {
 
 .player--winner {
   background-color: #2f2f2f;
+  box-shadow: inset 0 0 2rem rgba(246, 196, 83, 0.3),
+    0 0 2rem rgba(246, 196, 83, 0.6);
+  transform: scale(1.02);
+  animation: winnerPulse 1.5s ease-in-out infinite;
 }
 
-.player--winner .name {
-  font-weight: 700;
-  color: #c7365f;
+.player--winner .name,
+.player--winner .score {
+  color: #f6c453;
+  font-weight: 800;
 }
+
+.player--winner::after {
+  content: '🏆';
+  position: absolute;
+  top: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+}
+
+@keyframes winnerPulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 2rem rgba(246, 196, 83, 0.3),
+      0 0 2rem rgba(246, 196, 83, 0.6);
+  }
+  50% {
+    box-shadow: inset 0 0 2.5rem rgba(246, 196, 83, 0.45),
+      0 0 3rem rgba(246, 196, 83, 0.8);
+  }
+}
+
 .hidden {
   display: none;
 }
