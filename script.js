@@ -14,6 +14,7 @@ const btnHold = document.querySelector('.btn--hold');
 const soundRoll = new Audio('./sounds/dice-roll.mp3');
 const soundHold = new Audio('./sounds/hold.mp3');
 const soundWin = new Audio('./sounds/win.mp3');
+const soundLoseTurn = new Audio('./sounds/lose.mp3');
 
 function setButtonsEnabled(on) {
   btnRoll.disabled = !on;
@@ -75,11 +76,13 @@ btnRoll.addEventListener('click', function () {
     // 3. Check for rolled 1: if true, switch to next player
     if (dice !== 1) {
       // add dice to the current score
+      soundRoll.play();
       currentScore += dice;
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
     } else {
       //switch to next player
+      soundLoseTurn.play();
       switchPlayer();
     }
   }
