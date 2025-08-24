@@ -11,6 +11,7 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
+const startSound = new Audio('./sounds/gamestart.mp3');
 const soundRoll = new Audio('./sounds/dice-roll.mp3');
 const soundHold = new Audio('./sounds/hold.mp3');
 const soundWin = new Audio('./sounds/win.mp3');
@@ -55,30 +56,24 @@ const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   activePlayer = activePlayer === 0 ? 1 : 0;
   currentScore = 0;
-  // current0El.textContent = 0;
+
   playerEl0.classList.toggle('player--active');
   playerEl1.classList.toggle('player--active');
 };
 
-//Rolling dice funtionality
 btnRoll.addEventListener('click', function () {
   if (playing) {
-    // 1. Generating a random dice roll
-
     let dice = Math.trunc(Math.random() * 6 + 1);
-    // 2.Display dice
-    diceEl.classList.remove('hidden');
-    diceEl.src = `dice-${dice}.png`; // dynamically load images depending on the random rolled dice
 
-    // 3. Check for rolled 1: if true, switch to next player
+    diceEl.classList.remove('hidden');
+    diceEl.src = `dice-${dice}.png`;
+
     if (dice !== 1) {
-      // add dice to the current score
       soundRoll.play();
       currentScore += dice;
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
     } else {
-      //switch to next player
       soundLoseTurn.play();
       switchPlayer();
     }
@@ -86,15 +81,13 @@ btnRoll.addEventListener('click', function () {
 });
 btnHold.addEventListener('click', function () {
   if (playing) {
-    //1. add current score to active player's score
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
-    //2. Check if player score is >= 10
     if (scores[activePlayer] >= winScore) {
       playing = false;
-      soundWin.play(); // 🎵 winner sound only
+      soundWin.play(); // 🎵
       diceEl.classList.add('hidden');
       document
         .querySelector(`.player--${activePlayer}`)
@@ -105,20 +98,23 @@ btnHold.addEventListener('click', function () {
 
       setButtonsEnabled(false);
     } else {
-      soundHold.play(); // 🎵 normal hold sound
-      //3. Switch to the next player
+      soundHold.play();
+
       switchPlayer();
     }
   }
 });
 
-btnNew.addEventListener('click', init);
-// Keyboard shortcuts: R = Roll, H = Hold, N = New
+btnNew.addEventListener('click', () => {
+  startSound.currentTime = 0;
+  startSound.play();
+  init();
+});
 window.addEventListener('keydown', e => {
   if (e.repeat) return;
-  if (e.target && e.target.tagName === 'INPUT') return; // don't trigger while typing
+  if (e.target && e.target.tagName === 'INPUT') return;
   const k = e.key.toLowerCase();
-  if (!playing && k !== 'n') return; // only allow New when game over
+  if (!playing && k !== 'n') return;
   if (k === 'r') btnRoll.click();
   if (k === 'h') btnHold.click();
   if (k === 'n') btnNew.click();
