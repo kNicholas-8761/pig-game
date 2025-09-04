@@ -25,11 +25,12 @@ body {
 /* LAYOUT */
 main {
   position: relative;
-  width: 100rem;
-  height: 60rem;
+  width: 95%;
+  max-width: 100rem;
+  height: auto;
+  aspect-ratio: 5 / 3;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
-  filter: blur();
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
   border-radius: 9px;
   overflow: hidden;
@@ -142,13 +143,7 @@ main {
 }
 
 .btn--new {
-  top: 4rem;
-}
-.btn--roll {
-  top: 39.3rem;
-}
-.btn--hold {
-  top: 46.1rem;
+  top: 2rem;
 }
 
 .btn:active {
@@ -158,15 +153,6 @@ main {
 
 .btn:focus {
   outline: none;
-}
-
-.dice {
-  position: absolute;
-  left: 50%;
-  top: 16.5rem;
-  transform: translateX(-50%);
-  height: 10rem;
-  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
 }
 
 .player--winner {
@@ -205,16 +191,18 @@ main {
 }
 .win-target {
   position: absolute;
-  top: 4rem;
+  top: 2rem;
   right: 2rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #333;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
   padding: 0.6rem 1rem;
   border-radius: 1rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  margin: 0;
 }
+
 .win-target input {
   width: 7rem;
   margin-left: 0.6rem;
@@ -228,4 +216,176 @@ main {
 
 .hidden {
   display: none;
+}
+.controls {
+  position: absolute;
+  top: 76%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.controls .btn {
+  position: static;
+  transform: none;
+  left: auto;
+}
+.dice {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 8rem;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+  main {
+    flex-direction: column;
+    height: auto;
+    aspect-ratio: auto;
+  }
+
+  .player {
+    flex: none;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .name {
+    font-size: 2rem;
+  }
+
+  .score {
+    font-size: 3rem;
+  }
+
+  .current-score {
+    font-size: 1.6rem;
+  }
+
+  .current-label {
+    font-size: 1.2rem;
+  }
+
+  .dice {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 1rem auto;
+    height: 6rem;
+  }
+
+  .btn {
+    position: relative;
+    left: auto;
+    transform: none;
+    margin: 0.3rem auto;
+    display: block;
+    font-size: 1.4rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .win-target {
+    margin: 1rem auto;
+    display: block;
+    text-align: center;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+  }
+
+  .btn--new {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    margin: 0.5rem auto !important;
+    display: block;
+  }
+
+  .controls {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 2rem auto;
+    gap: 0.8rem;
+  }
+}
+
+/* Tablets: row layout */
+@media (min-width: 601px) and (max-width: 900px) {
+  main {
+    flex-direction: row;
+    height: auto;
+  }
+
+  .player {
+    padding: 3rem 2rem;
+  }
+
+  .name {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .score {
+    font-size: 4rem;
+    margin-top: 1rem;
+  }
+
+  .current {
+    width: 60%;
+    padding: 1.2rem;
+  }
+
+  .current-score {
+    font-size: 2.5rem;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .btn--new {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .win-target {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .dice {
+    position: absolute;
+    top: 45%; /* lower dice */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 6rem;
+  }
+
+  .controls {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 }

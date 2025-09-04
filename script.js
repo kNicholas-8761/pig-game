@@ -17,8 +17,13 @@ const soundHold = new Audio('./sounds/hold.mp3');
 const soundWin = new Audio('./sounds/win.mp3');
 const soundLoseTurn = new Audio('./sounds/lose.mp3');
 
+startSound.volume = 0.2;
+
 function setButtonsEnabled(on) {
   btnRoll.disabled = !on;
+  btnHold.disabled = !on;
+}
+function setHoldEnabled(on) {
   btnHold.disabled = !on;
 }
 
@@ -47,7 +52,9 @@ const init = function () {
   playerEl1.classList.remove('player--winner');
   playerEl0.classList.add('player--active');
   playerEl1.classList.remove('player--active');
-  setButtonsEnabled(true);
+
+  btnRoll.disabled = false;
+  setHoldEnabled(false);
 };
 
 init();
@@ -59,6 +66,7 @@ const switchPlayer = function () {
 
   playerEl0.classList.toggle('player--active');
   playerEl1.classList.toggle('player--active');
+  setHoldEnabled(false);
 };
 
 btnRoll.addEventListener('click', function () {
@@ -73,6 +81,7 @@ btnRoll.addEventListener('click', function () {
       currentScore += dice;
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
+      setHoldEnabled(true);
     } else {
       soundLoseTurn.play();
       switchPlayer();
