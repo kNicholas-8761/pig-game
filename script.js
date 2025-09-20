@@ -30,12 +30,19 @@ function setHoldEnabled(on) {
 let playing, currentScore, activePlayer, scores;
 let winScore = 100;
 
+const winScoreInput = document.getElementById('winScore');
+
+winScoreInput?.addEventListener('input', updateWinScore);
+winScoreInput?.addEventListener('change', updateWinScore);
+
+function updateWinScore(e) {
+  const v = parseInt(e.target.value, 10);
+  winScore = Number.isFinite(v) && v > 0 ? v : 100;
+  console.log('Winning score set to:', winScore);
+}
+
 const init = function () {
   scores = [0, 0];
-
-  const input = document.getElementById('winScore');
-  const v = parseInt(input?.value, 10);
-  winScore = Number.isFinite(v) && v > 0 ? v : 100;
 
   currentScore = 0;
   activePlayer = 0;
