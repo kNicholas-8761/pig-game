@@ -89,21 +89,41 @@ btnRoll.addEventListener('click', function () {
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
       setHoldEnabled(true);
+
+      if (scores[activePlayer] + currentScore >= winScore) {
+        scores[activePlayer] += currentScore;
+        document.getElementById(`score--${activePlayer}`).textContent =
+          scores[activePlayer];
+
+        playing = false;
+
+        soundWin.play();
+        diceEl.classList.add('hidden');
+        document
+          .querySelector(`.player--${activePlayer}`)
+          .classList.add('player--winner');
+        document
+          .querySelector(`.player--${activePlayer}`)
+          .classList.remove('player--active');
+
+        setButtonsEnabled(false);
+      }
     } else {
       soundLoseTurn.play();
       switchPlayer();
     }
   }
 });
+
 btnHold.addEventListener('click', function () {
   if (playing) {
-    scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
     if (scores[activePlayer] >= winScore) {
       playing = false;
-      soundWin.play(); // 🎵
+
+      soundWin.play();
       diceEl.classList.add('hidden');
       document
         .querySelector(`.player--${activePlayer}`)
@@ -115,7 +135,6 @@ btnHold.addEventListener('click', function () {
       setButtonsEnabled(false);
     } else {
       soundHold.play();
-
       switchPlayer();
     }
   }
